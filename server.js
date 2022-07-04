@@ -1,14 +1,13 @@
-cors = require('cors')
-const express = require ('express')
+const cors = require('cors')
+const express = require('express')
 const app = express()
+const axios = require('axios')
 
-app.unsubscribe(cors())
+app.use(cors())
 
-app.get('/', (req, res) => {
-  return res.json([
-    {name: 'Jeff'},
-    {name: 'Diego'}
-])
+app.get('/', async (req, res) => {
+  const { data } = await axios('https://jsonplaceholder.typicode.com/users')
+  return res.json(data)
 })
- 
+
 app.listen('4567')
